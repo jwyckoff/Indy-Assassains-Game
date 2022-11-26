@@ -1,0 +1,151 @@
+/*Color Palette:
+    #1F4690 -> Blue
+    #3A5BA0 -> Lighter Blue;
+    #FFA500 -> Gold
+*/
+
+.titlebar
+{
+    height: var(--h);
+    margin: 2vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    grid-template-rows: 1fr 1fr 300px; 
+
+    border: 5px solid #FFA500;
+    border-radius:10px;
+}
+
+.title{
+
+    color:#1f4690;
+    font-family:impact;
+    
+    height:250;
+    width:auto;
+
+    padding: 1em;
+    margin:0 -1em; 
+
+    
+     
+}
+
+.text
+{
+    grid-column:1;
+    grid-row:0;
+    font-size:4vh;
+
+    position:absolute;
+    
+    text-align:center;
+
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    height: 87.5;
+    min-width:4vw;
+}
+
+.media
+{
+    grid-column:2;
+    grid-row: 0;
+    font-size:20;
+    
+    padding-right:10;
+
+    height:25;
+
+    transform: translate(700px,100px);
+
+    right:0;
+
+}
+
+.quote
+{
+    grid-column:0;
+    grid-row:0;
+    font-size:20;    
+
+    position:absolute;
+    width:75vw;
+    height:10vh;
+    text-align:center;
+
+    left:50%;
+    top:25vh;
+    transform: translate(-50%);
+    bottom:0;
+
+
+    
+}
+
+.buttons{
+    width:100px;
+    translate: transformX(50vh);
+    
+}
+
+#newAccount
+{
+    color:#FFFFFF;
+    background-color:#1f4690;
+    font-size:3vh;
+    font-family:impact;
+
+    border: 0;
+
+    transform:translateX(10vh);
+
+    position: absolute;
+}
+
+#login
+{
+    color:#FFFFFF;
+    background-color:#1f4690;
+    font-size:3vh;
+    font-family:impact;
+    position: absolute;
+    border: 0;
+}
+
+/* Everything between this point and the next comment line is for the main home page*/
+.mainpage
+{
+    height: var(--h);
+    margin: 2vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    grid-template-rows: 1fr 1fr 300px; 
+
+}
+
+.cashpool
+{
+    font-size:3vh;
+}
+
+
+/*Everything past this point is specifically for Create Account tab */
+.input
+{
+    float:right;
+    width:25%;
+    padding-right:100;
+}
+
+.rules
+{
+    color:#1f4690;
+    font-size:20px;
+    font-family:impact;
+    float:left;
+    width:50vw;
+}
+
+
