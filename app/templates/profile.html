@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <link rel = "stylesheet" type = "text/css" href = "{{url_for('static',filename = 'css/main.css')}}">
+    </head>
+    <title> Independence co.2023 Assassains Game</title>
+    <body class = "page">
+        <div class = "titlebar">
+            <span id = "social_media"><a href = "https://www.instagram.com/indyclassof2023/?next=%2F" target = "_blank">@indyclassof2023</a><br><a href = "https://www.instagram.com/indynation1/?next=%2F" target = "_blank">@indynation</a></span>
+            <span id = "titleText"> Indy Assassains</span>
+        </div>
+        <div class = "main_body">
+            <span id = "sectionTitle">Welcome back, {{user|safe}}!</span>
+            <div class = "profile">
+                <span id = "name">Full Name: {{user|safe}}</span>
+                <span id = "status">Status: {{status|safe}}</span>
+                <span id = "phone_number">Phone Number: {{phone_number|safe}}</span>
+                <span id = "eliminations">Confirmed Eliminations: REDACTED</span>
+            </div>
+        </div>
+    </body>
+</html>

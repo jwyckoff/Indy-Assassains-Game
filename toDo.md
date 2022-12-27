@@ -14,4 +14,6 @@
     2. Group ID's together for teams
         * Will allow easy migration to solos
 * [ ] Create GroupMe bot to give TLDR updates on the game
-* [ ] Look for possible hosting servers for website
+* [X] ~~*Look for possible hosting servers for website*~~ [2022-12-21]
+* [ ] Work with Miles Wycoff on getting website up and running on Microsoft web hosting platform
+

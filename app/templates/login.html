@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <link rel = "stylesheet" type = "text/css" href = "{{url_for('static',filename = 'css/main.css')}}">
+    </head>
+    <title> Independence co.2023 Assassains Game</title>
+    <body class = "page">
+        <div class = "titlebar">
+            <span id = "social_media"><a href = "https://www.instagram.com/indyclassof2023/?next=%2F" target = "_blank">@indyclassof2023</a><br><a href = "https://www.instagram.com/indynation1/?next=%2F" target = "_blank">@indynation</a></span>
+            <span id = "titleText"> Indy Assassains</span>
+        </div>
+        <div class = "main_body">
+            <div class = "calendar">
+                <center>
+                <span id = "sectionTitle">Calendar</span>
+                <br>
+                <span id = "calendar_updates">{{events|safe}}</span>
+                </center>
+            </div>
+            <form method = "POST" class = "logincredentials">
+
+                <span id = "labels"> First and Last Name: </span>
+                <input type = "text"  id = "username" name = "username" placeholder = "Enter Username Here."></input>
+                <br></br>
+
+                
+                <span id = "labels"> Phone Number: </span>
+                <input type = "tel" id = "phonenumber" name = "phonenumber" placeholder = "1234567890" pattern = "[0-9]{10}"></input>
+                <br>
+
+                <span id = "account_status">{{account_status|safe}}</span>
+
+                <input type = "submit" id = "login" name = "Login" value = "Sign in"></input>
+
+
+            </form>
+            <center class = "login_rules">
+                <span id = "sectionTitle">Rules</span>
+                <br>
+                <span>{{ruleList|safe}}</span>
+            </center>
+            
+        </div>
+    </body>
+</html>

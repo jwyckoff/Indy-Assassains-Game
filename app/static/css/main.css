@@ -1,0 +1,463 @@
+:root
+{
+    --text_color: #012622;
+    --title_color: #003b36;
+    --background: #ece5f0;
+    --accent-color1: #e98a15;
+    --accent-color2: #59114d;
+}
+
+
+.page
+{
+    background: #ece5f0;;
+}
+
+
+.titlebar
+{
+
+    /*Setting up border*/
+    border-style:solid;
+    border-width: 10px;
+    border-color:var(--text_color);
+    border-radius:5px;
+
+    min-width:300px;
+
+    /*Grid Setup*/
+    display:grid;
+    column-gap:5px;
+    grid-template-columns: auto auto auto;
+    
+    /*Font setup*/
+    text-align:center;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color:var(--title_color);
+    
+}
+
+#social_media
+{
+    font-size:20px;
+    padding-top:20px;
+}
+
+#titleText
+{
+    font-size:50px; 
+    grid-column:2;
+}
+
+#quotes
+{
+    grid-column-start: 1;
+    grid-column-end:4;
+
+    padding-top:20px;
+
+    font-size:20px;
+    font-weight:700;
+}
+
+.title_button_parent
+{
+    padding-top:20px;
+
+}
+
+#title_button_secondary
+{
+    background-color: var(--accent-color1);
+    
+    border-width:0px;
+
+    color:var(--text_color);  
+
+    height:40px;
+
+    font-size:20px;
+
+    
+}
+#title_button_secondary:hover
+{
+    background-color: var(--accent-color2);
+}
+
+/*Cosmetics for Calendar, Updates, Prize Pool, and Rules*/
+
+.main_body
+{
+    padding-top:20px;
+
+    display:grid;
+    grid-column-gap:10px;
+    grid-row-gap:10px;
+    grid-template-columns: auto auto auto;
+}
+
+#sectionTitle
+{
+    font-size:30px;
+    font-weight:bold;
+    color:var(--title_color);
+    text-align: center;
+}
+
+.calendar
+{
+    border-style:solid;
+    border-width:10px;
+    border-color:var(--text_color);
+    min-width:50px;
+    width: 20vw;
+
+    height:50vh;
+
+    grid-column-start:0;
+    grid-column-end:0;
+
+    grid-row-start:1;
+    grid-row-end:3;
+
+    padding-bottom:20px;
+
+    overflow-y:scroll;
+
+}
+
+#calendar_updates
+{
+
+    font-size: 20px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: var(--accent-color2);
+    font-weight:bold;
+
+
+}
+
+.update_section
+{
+    border-style:solid;
+    border-width:10px;
+    border-color:var(--text_color);
+
+    min-width:150px;
+    width: 52vw;
+
+    height:50vh;
+
+    grid-column-start:2;
+    grid-column-end:4;
+
+    grid-row-start:0;
+    grid-row-end:2;
+
+    overflow-y:scroll;
+}
+
+#home_updates
+{
+    display:flex;
+    flex-direction: column-reverse;
+    color: var(--accent-color2);
+    font-size: 20px;
+    font-weight:bold;
+
+}
+
+.pool_and_rules
+{
+    display:grid;
+    grid-template-columns: auto auto auto;
+
+    grid-column-start:4;
+    grid-column-end:6;
+
+    row-gap:20px;
+    
+}
+
+.prize_pool
+{
+    
+    border-style:solid;
+    border-width:10px;
+    border-color:var(--text_color);
+
+    min-width: 100px;
+    width:20vw;
+
+    height:10vh;
+
+    font-weight:bold;
+
+    grid-row-start:1;
+    grid-row-end:1;
+
+}
+
+.rules
+{
+    border-style:solid;
+    border-width:10px;
+    border-color:var(--accent-color1);
+
+    min-width: 100px;
+    width:20vw;
+
+    height:50%;
+
+    font-weight:bold;
+
+    grid-row-start:2;
+    grid-row-end:3;
+
+    overflow-y:scroll;
+}
+
+/* Login Page Cosmetics*/
+
+.logincredentials
+{
+
+    grid-column-start:4;
+    grid-column-end:4;
+
+    display:grid;
+    width:10vw;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    row-gap:20px;
+    column-gap:10px;
+
+    font-size: 20px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: var(--text_color);
+    font-weight:bold;
+
+    padding-top:10vw;
+}
+
+#labels
+{
+    grid-column-start:1;
+    grid-column-end:1;
+
+    min-width:10vw;
+}
+
+#username
+{
+    grid-column-start:2;
+    grid-column-end:2;
+
+    grid-row-start: 1;
+    grid-row-end:1;
+
+    height:40px;
+
+}
+
+#phonenumber
+{
+    grid-column-start:2;
+    grid-column-end:2;
+
+    grid-row-start: 2;
+    grid-row-end:2;
+
+    height:40px;
+}
+
+.login_rules
+{
+    grid-column-start:7;
+    grid-column-end:7;
+
+    border-style:solid;
+    border-width:10px;
+    border-color:var(--accent-color1);
+
+    min-width: 100px;
+    width:20vw;
+
+
+    font-weight:bold;
+
+    float:right;
+
+
+    overflow-y:scroll;
+}
+
+#login
+{
+    height:80px;
+
+    grid-column-start:1;
+    grid-column-end:3;
+
+    border-width:0px;
+    background-color: var(--accent-color1);
+    color: var(--text_color);
+
+    font-weight:bold;
+    font-size:20px;
+
+}
+
+#login:hover
+{
+    border-style:solid;
+    border-color: var(--accent-color2);
+    border-width:10px;
+}
+
+#account_status
+{
+    grid-column-start:1;
+    grid-column-end:3;
+
+    
+}
+
+.profile
+{
+    display: grid;
+    grid-template-rows: auto auto auto;
+    row-gap:20px;
+
+
+    font-size:20px;
+    color: var(--text_color);
+}
+
+#name
+{
+    grid-row: row / span 1;
+
+}
+
+#status
+{
+    grid-row: row 2 / span 1;
+
+}
+
+#reveal_number
+{
+    grid-row: row 3 / span 1;
+
+}
+#phone_number
+{
+    grid-row: row 3 / span 1;
+
+}
+
+#eliminations
+{
+    grid-row: row 4 / span 1;
+
+}
+
+/* Admin Console */
+.update_console
+{
+    grid-column-start:0;
+    grid-column-end:0;
+
+    grid-row-start:2;
+    grid-row-end:2;
+
+    border-style:solid;
+    border-width: 10px;
+    border-color:var(--text_color);
+    border-radius:5px;
+
+    min-width:50px;
+    width: 40vw;
+
+    height: 50vh;
+
+
+}
+.player_console
+{
+    grid-column-start:1;
+    grid-column-end:2;
+
+    grid-row-start:2;
+    grid-row-end:2;
+
+    border-style:solid;
+    border-width: 10px;
+    border-color:var(--text_color);
+    border-radius:5px;
+
+    min-width:50px;
+    width: 40vw;
+
+    height: 50vh;
+}
+
+
+
+#update
+{
+    grid-column-start:0;
+    grid-column-end:2;
+
+    grid-row-start:4;
+    grid-row-end:4;
+
+    border-style:solid;
+    border-width: 10px;
+    border-color:var(--text_color);
+    border-radius:5px;
+
+    min-width:50px;
+    /* width: 40vw; */
+
+    height: 50vh;
+
+    padding-top:20px;
+}
+
+#create_update
+{
+    scroll-behavior: smooth;
+}
+
+#update_field
+{
+    float: center;
+    width: 95vw;
+    height: 25vh;
+
+    text-align: center;
+    padding: 10px;
+}
+
+#update_submit
+{
+    background-color: var(--accent-color1);
+    
+    border-width:0px;
+
+    color:var(--text_color);  
+
+    height:40px;
+
+    font-size:20px;
+
+    
+}
+#update_submit:hover
+{
+    background-color: var(--accent-color2);
+}
+

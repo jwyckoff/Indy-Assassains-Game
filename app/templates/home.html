@@ -1,29 +1,55 @@
 <html>
-    <title>Independence Assassains Game 2023</title>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/redo.css') }}">
-    <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
-    <body>
-        <div class = "titlebar" style = "--h: 70vh">
-            <div class = "title text">
-                <p >Indy Class of 2023 Senior Assassains Game!</p>
-            </div>
-            <div class = "title buttons">
+    <head>
+        <link rel = "stylesheet" type = "text/css" href = "{{url_for('static',filename = 'css/main.css')}}">
+    </head>
+    <title> Independence co.2023 Assassains Game</title>
+    
+    <body class = "page">
+        <div class = "titlebar">
+            <span id = "social_media"><a href = "https://www.instagram.com/indyclassof2023/?next=%2F" target = "_blank">@indyclassof2023</a><br><a href = "https://www.instagram.com/indynation1/?next=%2F" target = "_blank">@indynation</a></span>
+            <span id = "titleText"> Indy Assassains</span>
+            <div class = "title_button_parent">
                 <form method = "POST">
-                    <button id = "login" class="button-solid" type = "submit" name = "log_in" id = "button" value = "enter">Log in</button>
-                    <button id = "newAccount" class = "button-solid" type = "submit" name = "create_account" id = "button" value = "enter">Create Account</button>
+                    <button type = "submit" id = "title_button_secondary" name = "login" value = "login">Log In</button>
+                    <button type = "submit" id = "title_button_secondary" name = "groupMe" value = "groupMeRequest">Join GroupMe Here</button>
                 </form>
             </div>
-            <div class = "title media">
-                <p>@indyclassof2023</p>
+            <span id = "quotes">{{quote|safe}}</span>
+            
+        </div>
+        <div class = "main_body">
+            <div class = "calendar">
+                <center>
+                <span id = "sectionTitle">Calendar</span>
+                <br>
+                <span id = "calendar_updates">{{events|safe}}</span>
+                </center>
             </div>
-            <div class = "title quote">
-                <p>{{quote|safe}}</p>
+            <div class = "update_section">
+                <center>
+                <span id = "sectionTitle">Updates</span>
+                <span id = "home_updates">{{updates|safe}}</span>
+                <br>
+
+                </center>
+            </div>
+            <div class = "pool_and_rules">
+                <div class = "prize_pool">
+                    <center>
+                    <span id = "sectionTitle">Prize Pool</span>
+                    <br>
+                    <span id = "prize_pool_text"> Earnings per winner: ${{cashPerWinner|safe}}</span>
+                    
+                </center>
+                </div>
+                <div class = "rules">
+                    <center>
+                        <span id = "sectionTitle">Rules</span>
+                    <br>
+                    <span id = "rules">{{ruleList|safe}}</span>
+                    </center>
+                </div>
             </div>
         </div>
-        <div class = "title mainpage">
-            <div class = "title cashpool">
-                <p>Cash Prize Per Current Winner: ${{cashPerWinner|safe}}</p>
-        </div>
-        
     </body>
 </html>

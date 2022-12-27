@@ -1,0 +1,43 @@
+<html>
+        <!-- Main goal of the admin window is to make everything editible through the console to make it easier for future classes to use.-->
+        <head>
+            <link rel = "stylesheet" type = "text/css" href = "{{url_for('static',filename = 'css/main.css')}}">
+        </head>
+        <title> Indy Assassains Admin Page</title>
+        <body class = "page">
+            <div class = "titlebar">
+                <span id = "titleText"> Indy Assassains Console</span>
+            </div>
+            <div class = "main_body">
+                <div class = "update_console">
+                    <!-- Purpose:
+                        - Send updates to home page
+                        - Disable features throughout the game 
+                    -->
+                    <span id = "sectionTitle"> Update Console</span>
+                    <form>
+                        <a href = "#update" id = "create_update"><input type = "button" href = "#update" value = "Create Update"></input></a>
+                    </form>
+                </div>
+                <div class = "player_console">      
+                    <!--Purpose:
+                        - Confirm new target assignments each week.
+                        - Edit target assignments for ~drama~ and errors
+                        - Send target assignments each week.
+                        - Remove or add players to game.
+                            * Revives
+                            * Disqualifications
+                    -->
+                    <span id = "sectionTitle"> Player Console</span>
+                </div>
+            </div>
+            <div id = "update">
+                <span id = "sectionTitle"> Updates</span>
+                <form method = "POST" class = "update_window">
+                    <input type = "text" id = "update_field" name = "update_text" placeholder = "Enter Update Here."</input>
+                    <input type = "submit" id = "update_submit" name = "update_submit" placeholder = "Submit Update"></input>
+                </form>
+                <span> {{confirm|safe}}</span>
+            </div>
+        </body>
+</html>
