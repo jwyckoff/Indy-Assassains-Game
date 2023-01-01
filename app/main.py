@@ -15,7 +15,8 @@ CALENDARINPUT = rf"{FOLDER_PATH}\Calendar.xlsx"
 CALENDARFILE = rf"{FOLDER_PATH}\Calendar.txt"
 CLASSCOUNT = 500
 ENTRYCOST = 10          # Unit is dollars
-
+REVIVECOST = 5
+GAMEMASTERS = ['green','romsdal','auto']
 
 def generateRules():                                                    # Loads RULESFILE when needed
     ruleFile = open(RULESFILE,"r")
@@ -69,7 +70,8 @@ class accounts():
                 D2-D1000: Status (Dead or Alive)
                 E2-E1000: Special Titles (Space to show if anyone has done anything interesting)
                 F2-F1000: Phone Numbers (Both for group chat and for player information)
-                H2-H1000: URL Extensions to their profile accounts
+                H2-H1000: Current Target Assignments
+                I2-I1000: URL Extensions to their profile accounts
         '''
         
         sheet = wb["Players"]
@@ -80,9 +82,14 @@ class accounts():
         # checking for matches of ID's
 
         for row in range(2, next_row):
-            if id == (sheet[f"A{row}"].value):
+            try:
+                if id == (sheet[f"A{row}"].value):
+                    
+                    match = True                            # if lines 52-53 finds a match to the potential new id, it will throw 409 (Conflict Error) to show this id already exists
                 
-                match = True                            # if lines 52-53 finds a match to the potential new id, it will throw 409 (Conflict Error) to show this id already exists
+            except UnboundLocalError:
+                match = False
+                break
                 
         if match == True:
             return 409
@@ -103,14 +110,6 @@ class accounts():
             lName = sheet.cell(row=next_row, column = 3)
             lName.value = lastName
             
-            # processing Phone Number into database
-            phoneNumber = sheet.cell(row = next_row, column = 6)
-            phoneNumber.value = number
-            
-            # processing password into database
-            passcode = sheet.cell(row = next_row, column = 7)
-            passcode.value = password
-            
             # setting new Player to Alive
             status = sheet.cell(row = next_row, column = 4)
             status.value = "alive"
@@ -119,8 +118,16 @@ class accounts():
             eliminations = sheet.cell(row = next_row, column = 5)
             eliminations.value = 0
             
+            # processing Phone Number into database
+            phoneNumber = sheet.cell(row = next_row, column = 6)
+            phoneNumber.value = number
+            
+            # processing password into database
+            passcode = sheet.cell(row = next_row, column = 7)
+            passcode.value = password
+            
             # creating user's url extension to their profile page
-            url_extension = sheet.cell(row = next_row, column = 8)
+            url_extension = sheet.cell(row = next_row, column = 9)
             url = hashlib.sha256(id[1].encode())
             url_extension.value = url.hexdigest()
                 
@@ -358,7 +365,7 @@ class calendar():
 class teams():
     '''
         Required functions in teams:
-            - Team target assignment
+            - Target assignment
             - Chances of outcome (Percentages of each team winning)
                 - Base on number of kills and number of people remaining compared to other team
                     - Number of eliminations increases points (Shows they actually play the game)
@@ -390,7 +397,7 @@ class teams():
         return team_id
         
     def set_teams(self, team_name: str, team_members: list):
-        """Group teams together based on ids.  
+        """Group teams together based on names.  
         ID's will be inputed and the function will find the names of everyone as well 
         as create an ID for the team and plug all information into the 'Teams' sheet
         in the excel spreadsheet. Function will also input the team name into the spreadsheet
@@ -414,29 +421,113 @@ class teams():
                 I Column: Team Member 4's ID (Found with accounts().getAccount() function starting at line 172)
                 J Column: Team Member 4's Status (Dead or Alive)
         '''
+        match = False
+        team_id = self.generateID(team_members)
+        for row in range(2, next_clear_row):
+            try:
+                if team_id == (self.TEAMSHEET[f"A{row}"].value):
+                    print("FOUND")
+                    match = True                            # if lines 52-53 finds a match to the potential new id, it will throw 409 (Conflict Error) to show this id already exists
+                
+            except UnboundLocalError:
+                match = False
+                break
+                
+        if match == True:
+            return 409
+            
         
-        member_names = []
+        elif match == False:
         
-        for i, player in enumerate(team_members):               # Uploading player data and gathering names for team ID
-            # splitting first and last name
-            for j, char in enumerate(player):
-                if char == " ":
-                    first_name = player[:j]
-            
-            player_account = accounts().getAccount('name', first_name)
-            status = player_account[1]
-            id = player_account[0]
-            
-            member_names.append(first_name)
-            
-            self.TEAMSHEET[f'{chr(67+(2*i))}{next_clear_row}'].value = id
-            self.TEAMSHEET[f'{chr(68+(2*i))}{next_clear_row}'].value = status
+            member_names = []
             
             
-            self.TEAMSHEET[f'B{next_clear_row}'].value = team_name
-            self.TEAMSHEET[f'A{next_clear_row}'].value = self.generateID(member_names)
+            for i, player in enumerate(team_members):               # Uploading player data and gathering names for team ID
+                # splitting first and last name
+                for j, char in enumerate(player):
+                    if char == " ":
+                        first_name = player[:j]
+                
+                player_account = accounts().getAccount('name', first_name)
+                status = player_account[1]
+                id = player_account[0]
+                
+                member_names.append(first_name)
+                
+                self.TEAMSHEET[f'{chr(67+(2*i))}{next_clear_row}'].value = id
+                self.TEAMSHEET[f'{chr(68+(2*i))}{next_clear_row}'].value = status
+                
+                
+                self.TEAMSHEET[f'B{next_clear_row}'].value = team_name
+                self.TEAMSHEET[f'A{next_clear_row}'].value = team_id
+                
+            self.DATAFILE.save(DATAFILE) 
+            return 200
+
+class targets():
+    
+    def __init__(self) -> None:
+        self.wb = load_workbook(DATAFILE, data_only = True)
+        self.ASSIGNLIST = self.wb['Target Assignments']
+        
+        
+        # Automating the transferring of target assignments from teams to duos to free for all based on date
+        time = datetime.datetime.now().strftime("%m/%d/%Y").split('/')     # Getting current date
+        
+        '''
+        Year is time[2]
+        Month is time[0]
+        Day is time[1]
+        '''
+        
+        calendar = load_workbook(CALENDARINPUT)['Sheet1']
+        duos = str(calendar['B13'].value)[:10].split("-")                 # Date Team divides to duos must be finalized. Splitting the first 10 characters in the cell by the dashes to get the year, month, and day.
+        '''
+        Year is duos[0]
+        Month is duos[1]
+        Day is duos[2]
+        '''
+        
+        duoSplit = datetime.date(int(duos[0]), int(duos[1]), int(duos[2]))
+        curDate = datetime.date(int(time[2]), int(time[0]), int(time[1]))
+        
+        timeToDivide = duoSplit - curDate                                 # Subtracting the current date from the day duo Splits must be finalized        
+        
+        
+        
+        if (timeToDivide.days <= 0) and (timeToDivide.days > -26):                                             # If today is the day teams divide or after, teams will be divided
+            self.FINALLIST = self.wb['Duos']
             
-        self.DATAFILE.save(DATAFILE) 
+        if timeToDivide.days <= -26:
+            self.FINALLIST = self.wb['Players']
+            
+        elif timeToDivide.days > 0:
+            self.FINALLIST = self.wb['Teams']
+        
+        
+
+
+    
+    def load(self):         # Set up for target assignments
+        '''
+            1. Put each ID into the Hunter list and Target list. 
+            2. Pick a random number between 2 and the max number of rows filled in the Target ID list. 
+            3. Check to make sure the cell has a valid ID 
+            4. Check to make sure ID's do not match (If they do, pick a new number).
+            5. If the ID's do not match, clear the cell in the Target list and move what was in that cell to row in M column of 'Teams' sheet.
+            6. Repeat from step 2.
+        '''
+        pass
+    
+    def status_check(self, admin:str = None, password:str = None):         # Check status and edit status of any team. If admin matches either gamemaster username and password matches correct password (admin username) then status can be manually changed.
+        if (admin.lower in GAMEMASTERS) and (password == 'c1f96b08fa7efdfb3732fca9db56e39a594944b2b14c5a95cce11a2e24de5b2d'):
+            pass
+        
+        else:
+            pass
+        
+        
+
 
 # Everything above this line is backend management, below this line is front end:
 ###########################################    
@@ -527,6 +618,12 @@ def admin():
 
 
 if __name__ == "__main__":
-    app.run(host = "0.0.0.0", debug = True)
+    # app.run(host = "0.0.0.0", debug = True)
+    # accounts().newAccount('Jacob','Giblin','test123','1234567890')
+    # accounts().newAccount('Josh','Smith','test163','1234365820')
+    # accounts().newAccount('Thomas','Hunter','test923','1234567523')
+    teams().set_teams('Breaking Bad',['Nick Romsdal','Jacob Giblin','Josh Smith','Thomas Hunter'])
+    
+    
 
     

@@ -15,13 +15,13 @@
         * Changes in gamemode (Teams of 4 to duos to free for all)
 
 **Personal Features**
-* [ ] Log in page 
-    * [ ] Name
-    * [ ] Phone Number
+* [X] ~~*Log in page*~~ [2022-12-31] 
+    * [X] ~~*Name*~~ [2022-12-31]
+    * [X] ~~*Phone Number*~~ [2022-12-31]
     * [ ] Address (Will only be revealed in the last round with verbal consent)
-* [ ] Personal Page
-    * [ ] Name
-    * [ ] Phone Number
+* [X] ~~*Personal Page*~~ [2022-12-31]
+    * [X] ~~*Name*~~ [2022-12-31]
+    * [X] ~~*Phone Number*~~ [2022-12-31]
     * [ ] Team name
         * [ ] Clicking team name will go to team page
     
@@ -36,7 +36,7 @@
 
 **Backend Work**
 * [ ] Automatic target assignments
-* [ ] Create custom ID's for each account created
+* [X] ~~*Create custom ID's for each account created*~~ [2022-12-31]
 * [ ] Optomize website for Azure cloud
 * [ ] Automate team divides once after 75% of all players have been eliminated
 
